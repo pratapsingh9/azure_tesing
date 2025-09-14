@@ -28,7 +28,7 @@ app.get("/api/v1/test/:id/:name", (req, res) => {
 });
 
 app.get("/api/v1/test/:id", (req, res) => {
-    const data = data.find((item) => item.id === parseInt(req.params.id));
+    const user = data.find((item) => item.id === parseInt(req.params.id));
     res.send(data);
 });
 
