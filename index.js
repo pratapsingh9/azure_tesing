@@ -5,31 +5,29 @@ app.get("/", (req, res) => {
     res.send("Hello World");
 });
 
+app.get("/health", (req, res) => {
+    res.json({
+        status: "ok",
+        message: "Server is healthy 🚀"
+    });
+});
+
 const data = [
-    {
-        id: 1,
-        name: "John",
-        age: 20
-    },
-    {
-        id: 2,
-        name: "Jane",
-        age: 21
-    }
+    { id: 1, name: "John", age: 20 },
+    { id: 2, name: "Jane", age: 21 }
 ];
 
-
 app.get("/api/v1/test/:id", (req, res) => {
-    res.send(`Hello World ${req.params.id}`);
+    const user = data.find((item) => item.id === parseInt(req.params.id));
+    if (user) {
+        res.json(user);
+    } else {
+        res.status(404).json({ error: "User not found" });
+    }
 });
 
 app.get("/api/v1/test/:id/:name", (req, res) => {
     res.send(`Hello World ${req.params.id} ${req.params.name}`);
-});
-
-app.get("/api/v1/test/:id", (req, res) => {
-    const user = data.find((item) => item.id === parseInt(req.params.id));
-    res.send(data);
 });
 
 app.listen(3000, () => {
